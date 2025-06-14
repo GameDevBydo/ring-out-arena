@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,8 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 300, maxSpeed = 5;    // Valores defaults de movimentação. Damping em 15.
 
     [HideInInspector] public float hitStunTimer;
-
     [HideInInspector] public bool lockMovement = false;
+    bool blocking;
 
     void Start()
     {
@@ -21,20 +23,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        InputKey = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        var gamepadLeftStick = Gamepad.all[0].leftStick.ReadValue();
+        InputKey = new Vector3(gamepadLeftStick.x, 0, gamepadLeftStick.y);
 
         if (Input.GetKeyDown(KeyCode.Q)) // Transformar isso em uma função do atacante
         {
             rb.linearVelocity = Vector3.zero;
-            rb.AddForce(Vector3.left * 50, ForceMode.Impulse);
+            rb.AddForce(Vector3.left * 15, ForceMode.Impulse);
             LockMovement();
             hitStunTimer = 0.3f;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) // Dash
         {
-            rb.AddForce(transform.forward * 50, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 10, ForceMode.Impulse);
         }
+
+        blocking = Input.GetKey(KeyCode.Mouse1);
     }
 
     void FixedUpdate()
@@ -44,11 +49,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (!lockMovement)
         {
-            if (InputKey.magnitude > 0f)
+            if (InputKey.magnitude > 0f && !blocking)
             {
                 rb.AddForce(InputKey.normalized * speed);
                 if (rb.linearVelocity.magnitude >= maxSpeed) rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
             }
+            else rb.linearVelocity *= 1 - (Time.fixedDeltaTime*10);
         }
         if (InputKey.magnitude >= 0.1f)
         {
@@ -59,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void LockMovement()
+    public void LockMovement()
     {
         lockMovement = true;
     }
