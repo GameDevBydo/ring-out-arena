@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - PlayerWeapon
+  - PlayerBody
   layers:
   - Default
   - TransparentFX

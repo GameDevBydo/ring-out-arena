@@ -45,7 +45,8 @@ GameObject:
   - component: {fileID: 5814908411195440632}
   - component: {fileID: 4732894380877068742}
   - component: {fileID: 5677417649052752537}
-  m_Layer: 0
+  - component: {fileID: 3930819600570678505}
+  m_Layer: 6
   m_Name: ActiveBody
   m_TagString: PlayerWeapon
   m_Icon: {fileID: 0}
@@ -170,6 +171,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3930819600570678505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971164567405742692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac790818479da0c4eb6f5045ddec655d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3475547563704545104
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,9 +393,10 @@ GameObject:
   - component: {fileID: 6679333802737104011}
   - component: {fileID: 6422303631254277623}
   - component: {fileID: 7379725998191472344}
+  - component: {fileID: 8303514302913664317}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Player
+  m_TagString: PlayerBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -429,7 +443,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &2096300428218233983
 CapsuleCollider:
@@ -470,6 +484,9 @@ MonoBehaviour:
   maxSpeed: 5
   hitStunTimer: 0
   lockMovement: 0
+  controllerID: 0
+  blocking: 0
+  defenseScale: 0.5
 --- !u!114 &6422303631254277623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1b63872ca00d748a8ba1fcaee6a6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  power: 30
+  invulTime: 0
+  controllerID: 0
 --- !u!95 &7379725998191472344
 Animator:
   serializedVersion: 7
@@ -504,6 +524,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8303514302913664317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6983222625490173489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7131005110464987340
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7977931277886109521}
   - component: {fileID: 7540078298594738221}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hitbox
   m_TagString: Player
   m_Icon: {fileID: 0}

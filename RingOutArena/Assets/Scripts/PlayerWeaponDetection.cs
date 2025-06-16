@@ -10,8 +10,9 @@ public class PlayerWeaponDetection : MonoBehaviour
             var thisPlayer = this.GetComponentInParent<PlayerMovement>();
             if (thisPlayer != colPlayer)
             {
-                col.GetComponentInParent<PlayerKnockback>().
-                TakeKnockback((colPlayer.transform.position - thisPlayer.transform.position).normalized);
+                var playerCombat = thisPlayer.gameObject.GetComponent<PlayerCombat>();
+                colPlayer.TakeKnockback((colPlayer.transform.position - thisPlayer.transform.position).normalized,
+                playerCombat.power);
             }
         }
     }

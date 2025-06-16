@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // Variables
     Rigidbody rb;
+    PlayerCombat pCombat;
     Vector3 InputKey;
 
     float MyFloat;   // Necessário para SmoothDampAngle, muda nada
@@ -14,32 +15,29 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public float hitStunTimer;
     [HideInInspector] public bool lockMovement = false;
-    bool blocking;
+    [HideInInspector] public int controllerID;
+    [HideInInspector] public bool blocking;
+    public float defenseScale = 0.5f;
+
+    Vector2 moveStick = new Vector2();
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pCombat = GetComponent<PlayerCombat>();
     }
 
     void Update()
     {
-        var gamepadLeftStick = Gamepad.all[0].leftStick.ReadValue();
-        InputKey = new Vector3(gamepadLeftStick.x, 0, gamepadLeftStick.y);
-
-        if (Input.GetKeyDown(KeyCode.Q)) // Transformar isso em uma função do atacante
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.AddForce(Vector3.left * 15, ForceMode.Impulse);
-            LockMovement();
-            hitStunTimer = 0.3f;
-        }
+        //var gamepadLeftStick = Gamepad.all[controllerID].leftStick.ReadValue();
+        InputKey = new Vector3(moveStick.x, 0, moveStick.y);
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) // Dash
         {
             rb.AddForce(transform.forward * 10, ForceMode.Impulse);
         }
 
-        blocking = Input.GetKey(KeyCode.Mouse1);
+        //blocking = Input.GetKey(KeyCode.Mouse1);
     }
 
     void FixedUpdate()
@@ -54,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(InputKey.normalized * speed);
                 if (rb.linearVelocity.magnitude >= maxSpeed) rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
             }
-            else rb.linearVelocity *= 1 - (Time.fixedDeltaTime*10);
+            else rb.linearVelocity *= 1 - (Time.fixedDeltaTime * 10);
         }
         if (InputKey.magnitude >= 0.1f)
         {
@@ -63,8 +61,19 @@ public class PlayerMovement : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
         }
+
+        rb.AddForce(Vector3.down * 50);
+    }
+    public void OnMove(InputValue value)
+    {
+        moveStick = value.Get<Vector2>();
     }
 
+    public void OnBlock(InputValue button)
+    {
+        if (button.isPressed) blocking = true;
+        if (!button.isPressed) blocking = false;
+    }
     public void LockMovement()
     {
         lockMovement = true;
@@ -73,5 +82,24 @@ public class PlayerMovement : MonoBehaviour
     void UnlockMovement()
     {
         lockMovement = false;
+    }
+
+    public void TakeKnockback(Vector3 dir, float power)
+    {
+        if (blocking) power *= defenseScale;
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(dir * power, ForceMode.Impulse);
+        LockMovement();
+        hitStunTimer = 0.3f;
+    }
+
+    public void RestartPosition()
+    {
+        rb.linearVelocity = Vector3.zero;
+        transform.position = Vector3.up;
+        LockMovement();
+        hitStunTimer = 0.5f;
+        pCombat.invulTime = 1f;
+        pCombat.ShowHitbox(false);
     }
 }

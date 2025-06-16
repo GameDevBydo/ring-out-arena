@@ -7,6 +7,12 @@ public class PlayerCombat : MonoBehaviour
     Rigidbody rb;
     Animator animator;
 
+    public float power = 15;
+
+    [HideInInspector]public float invulTime = 0;
+
+    [HideInInspector] public int controllerID;
+
     void Start()
     {
         pMovement = GetComponent<PlayerMovement>();
@@ -17,7 +23,19 @@ public class PlayerCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Gamepad.all[0].buttonWest.wasPressedThisFrame) animator.SetTrigger("attackTrigger");
-        animator.SetBool("defendBool", Gamepad.all[0].leftShoulder.isPressed);
+        if (invulTime > 0) invulTime -= Time.deltaTime;
+        else if (!transform.GetChild(0).gameObject.activeSelf) ShowHitbox(true);
+        animator.SetBool("defendBool", pMovement.blocking);
+    }
+
+    public void OnAttack(InputValue value)
+    {
+        invulTime = 0;
+        animator.SetTrigger("attackTrigger");
+    }
+
+    public void ShowHitbox(bool value)
+    {
+        transform.GetChild(0).gameObject.SetActive(value);
     }
 }
