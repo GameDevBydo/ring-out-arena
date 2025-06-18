@@ -6,13 +6,13 @@ public class PlayerWeaponDetection : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            var colPlayer = col.GetComponentInParent<PlayerMovement>();
-            var thisPlayer = this.GetComponentInParent<PlayerMovement>();
+            var colPlayer = col.GetComponentInParent<PlayerInfo>();
+            var thisPlayer = this.GetComponentInParent<PlayerInfo>();
             if (thisPlayer != colPlayer)
             {
-                var playerCombat = thisPlayer.gameObject.GetComponent<PlayerCombat>();
-                colPlayer.TakeKnockback((colPlayer.transform.position - thisPlayer.transform.position).normalized,
-                playerCombat.power);
+                colPlayer.playerMovement.TakeKnockback((colPlayer.transform.position - thisPlayer.transform.position).
+                normalized, thisPlayer.playerCombat.power);
+                colPlayer.lastPlayerHit = thisPlayer;
             }
         }
     }

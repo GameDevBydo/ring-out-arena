@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 2264642275134830355}
   - component: {fileID: 4315328387046010742}
   - component: {fileID: 2096300428218233983}
+  - component: {fileID: 92949967446958620}
   - component: {fileID: 6679333802737104011}
   - component: {fileID: 6422303631254277623}
   - component: {fileID: 7379725998191472344}
@@ -468,6 +469,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &92949967446958620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6983222625490173489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b2fbb2981b5f34db04a28e1c9ffc27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCombat: {fileID: 0}
+  playerMovement: {fileID: 0}
+  animator: {fileID: 0}
+  playerName: 
+  playerID: 0
+  playerPoints: 0
+  lastPlayerHit: {fileID: 0}
 --- !u!114 &6679333802737104011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +521,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 30
   invulTime: 0
-  controllerID: 0
 --- !u!95 &7379725998191472344
 Animator:
   serializedVersion: 7

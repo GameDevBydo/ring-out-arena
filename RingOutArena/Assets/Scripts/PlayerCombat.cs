@@ -3,21 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
-    PlayerMovement pMovement;
-    Rigidbody rb;
-    Animator animator;
-
+    PlayerInfo playerInfo;
     public float power = 15;
 
     [HideInInspector]public float invulTime = 0;
-
-    [HideInInspector] public int controllerID;
-
-    void Start()
+    void Awake()
     {
-        pMovement = GetComponent<PlayerMovement>();
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        playerInfo = GetComponent<PlayerInfo>();
     }
 
     // Update is called once per frame
@@ -25,13 +17,13 @@ public class PlayerCombat : MonoBehaviour
     {
         if (invulTime > 0) invulTime -= Time.deltaTime;
         else if (!transform.GetChild(0).gameObject.activeSelf) ShowHitbox(true);
-        animator.SetBool("defendBool", pMovement.blocking);
+        playerInfo.animator.SetBool("defendBool",  playerInfo.playerMovement.blocking);
     }
 
     public void OnAttack(InputValue value)
     {
         invulTime = 0;
-        animator.SetTrigger("attackTrigger");
+        playerInfo.animator.SetTrigger("attackTrigger");
     }
 
     public void ShowHitbox(bool value)

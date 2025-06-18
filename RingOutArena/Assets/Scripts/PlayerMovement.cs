@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // Variables
     Rigidbody rb;
-    PlayerCombat pCombat;
+    PlayerInfo playerInfo;
     Vector3 InputKey;
 
     float MyFloat;   // Necessário para SmoothDampAngle, muda nada
@@ -21,10 +21,10 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 moveStick = new Vector2();
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        pCombat = GetComponent<PlayerCombat>();
+        playerInfo = GetComponent<PlayerInfo>();
     }
 
     void Update()
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = Vector3.up;
         LockMovement();
         hitStunTimer = 0.5f;
-        pCombat.invulTime = 1f;
-        pCombat.ShowHitbox(false);
+        playerInfo.playerCombat.invulTime = 1f;
+        playerInfo.playerCombat.ShowHitbox(false);
     }
 }
