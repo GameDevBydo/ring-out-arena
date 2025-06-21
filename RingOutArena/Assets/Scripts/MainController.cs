@@ -6,6 +6,7 @@ using TMPro;
 public class MainController : MonoBehaviour
 {
     public GameObject playerInfoPrefab, playerPointsArea;
+    [HideInInspector] public bool gameStart = false;
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -52,6 +53,22 @@ public class MainController : MonoBehaviour
     public void UpdatePlayerScore(PlayerInfo player)
     {
         playerPointsArea.transform.GetChild(player.playerID).GetChild(0).GetChild(1).
-        gameObject.GetComponent<TextMeshProUGUI>().text = ""+player.playerPoints;
-    } 
+        gameObject.GetComponent<TextMeshProUGUI>().text = "" + player.playerPoints;
+    }
+
+    public void bt_BeginGame()
+    {
+        gameStart = true;
+        foreach (PlayerInfo p in GameObject.FindObjectsByType<PlayerInfo>(FindObjectsSortMode.None))
+        {
+            p.ChangeInputMap(0);
+        }
+    }
+
+    public void bt_SetPlayerClass(PlayerClassInfo classInfo)
+    {
+        Debug.Log(classInfo.className);
+        //chamar playerInfo.UpdateClassValues(classInfo); identificando o playerInfo correto.
+        //chamar a imagem da area usando o playerInfo.playerID
+    }
 }

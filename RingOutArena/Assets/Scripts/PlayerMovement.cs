@@ -42,27 +42,30 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (hitStunTimer > 0) hitStunTimer -= Time.fixedDeltaTime;
-        else if (lockMovement) UnlockMovement();
-
-        if (!lockMovement)
+        if (playerInfo.main.gameStart)
         {
-            if (InputKey.magnitude > 0f && !blocking)
+            if (hitStunTimer > 0) hitStunTimer -= Time.fixedDeltaTime;
+            else if (lockMovement) UnlockMovement();
+
+            if (!lockMovement)
             {
-                rb.AddForce(InputKey.normalized * speed);
-                if (rb.linearVelocity.magnitude >= maxSpeed) rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                if (InputKey.magnitude > 0f && !blocking)
+                {
+                    rb.AddForce(InputKey.normalized * speed);
+                    if (rb.linearVelocity.magnitude >= maxSpeed) rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                }
+                else rb.linearVelocity *= 1 - (Time.fixedDeltaTime * 10);
             }
-            else rb.linearVelocity *= 1 - (Time.fixedDeltaTime * 10);
-        }
-        if (InputKey.magnitude >= 0.1f)
-        {
-            float angle = Mathf.Atan2(InputKey.x, InputKey.z) * Mathf.Rad2Deg;
-            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref MyFloat, 0.1f);
+            if (InputKey.magnitude >= 0.1f)
+            {
+                float angle = Mathf.Atan2(InputKey.x, InputKey.z) * Mathf.Rad2Deg;
+                float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref MyFloat, 0.1f);
 
-            transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
-        }
+                transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
+            }
 
-        rb.AddForce(Vector3.down * 50);
+            rb.AddForce(Vector3.down * 50);
+        }
     }
     public void OnMove(InputValue value)
     {

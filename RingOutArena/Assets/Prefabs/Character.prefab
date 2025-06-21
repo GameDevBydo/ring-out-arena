@@ -484,6 +484,7 @@ MonoBehaviour:
   playerCombat: {fileID: 0}
   playerMovement: {fileID: 0}
   animator: {fileID: 0}
+  main: {fileID: 0}
   playerName: 
   playerID: 0
   playerPoints: 0
@@ -570,7 +571,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 272f6d14-89ba-496f-b7ff-215263d3219f
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &7131005110464987340
