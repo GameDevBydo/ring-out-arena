@@ -2,11 +2,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class MainController : MonoBehaviour
 {
     public GameObject playerInfoPrefab, playerPointsArea;
+    public int pointsToWin = 5;
     [HideInInspector] public bool gameStart = false;
+    [HideInInspector] public List<PlayerInfo> players;
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -21,6 +25,7 @@ public class MainController : MonoBehaviour
         playerInfo.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = p.playerName;
         OrganizePlayerInfos();
         p.main = this;
+        players.Add(p);
     }
 
     void OrganizePlayerInfos()
@@ -54,6 +59,7 @@ public class MainController : MonoBehaviour
     {
         playerPointsArea.transform.GetChild(player.playerID).GetChild(0).GetChild(1).
         gameObject.GetComponent<TextMeshProUGUI>().text = "" + player.playerPoints;
+        if (player.playerPoints >= pointsToWin) WinGame(player);
     }
 
     public void bt_BeginGame()
@@ -62,6 +68,15 @@ public class MainController : MonoBehaviour
         foreach (PlayerInfo p in GameObject.FindObjectsByType<PlayerInfo>(FindObjectsSortMode.None))
         {
             p.ChangeInputMap(0);
+        }
+    }
+
+    public void WinGame(PlayerInfo player)
+    {
+        Debug.Log("Vencedor é: " + player.playerName);
+        foreach (PlayerInfo p in players)
+        {
+            Debug.Log("Pontos de " + p.playerName + " : " + p.playerPoints);
         }
     }
 

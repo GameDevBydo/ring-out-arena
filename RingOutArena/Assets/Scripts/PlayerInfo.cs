@@ -15,7 +15,7 @@ public class PlayerInfo : MonoBehaviour
     [HideInInspector] public int playerID;
     [HideInInspector] public int playerPoints = 0;
     [HideInInspector] public PlayerInfo lastPlayerHit;
-    [HideInInspector] public PlayerClassInfo pClassInfo;
+    public PlayerClassInfo pClassInfo;
     void Awake()
     {
         playerCombat = GetComponent<PlayerCombat>();

@@ -1320,7 +1320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &864665721
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1889,7 +1889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1066261103
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2091,7 +2091,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInfoPrefab: {fileID: 6206479619071439770, guid: 2db13a0a20dcb9a419f1368c4658f744, type: 3}
   playerPointsArea: {fileID: 1659205609}
+  pointsToWin: 5
   gameStart: 0
+  players: []
 --- !u!4 &1476509376
 Transform:
   m_ObjectHideFlags: 0

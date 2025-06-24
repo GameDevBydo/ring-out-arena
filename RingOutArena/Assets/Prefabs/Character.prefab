@@ -489,6 +489,7 @@ MonoBehaviour:
   playerID: 0
   playerPoints: 0
   lastPlayerHit: {fileID: 0}
+  pClassInfo: {fileID: 0}
 --- !u!114 &6679333802737104011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,7 +572,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 272f6d14-89ba-496f-b7ff-215263d3219f
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &7131005110464987340
