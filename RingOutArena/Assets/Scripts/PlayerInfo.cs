@@ -12,6 +12,7 @@ public class PlayerInfo : MonoBehaviour
     // Variables
 
     public string playerName;
+    public MeshRenderer bodyMaterial;
     [HideInInspector] public int playerID;
     [HideInInspector] public int playerPoints = 0;
     [HideInInspector] public PlayerInfo lastPlayerHit;
@@ -25,7 +26,7 @@ public class PlayerInfo : MonoBehaviour
 
     void Start()
     {
-        ChangeInputMap(1);
+        //ChangeInputMap(1);
     }
 
     public void ChangeInputMap(int value) // 0 = Player, 1 = UI

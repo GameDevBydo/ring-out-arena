@@ -486,6 +486,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   main: {fileID: 0}
   playerName: 
+  bodyMaterial: {fileID: 6360364228601263020}
   playerID: 0
   playerPoints: 0
   lastPlayerHit: {fileID: 0}
@@ -505,9 +506,11 @@ MonoBehaviour:
   speed: 300
   maxSpeed: 5
   hitStunTimer: 0
+  dashDuration: 0
   lockMovement: 0
   controllerID: 0
   blocking: 0
+  dashing: 0
   defenseScale: 0.5
 --- !u!114 &6422303631254277623
 MonoBehaviour:
@@ -521,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1b63872ca00d748a8ba1fcaee6a6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 30
+  power: 20
   invulTime: 0
 --- !u!95 &7379725998191472344
 Animator:

@@ -13,10 +13,10 @@ public class PlayerMovement : MonoBehaviour
 
     public float speed = 300, maxSpeed = 5;    // Valores defaults de movimentação. Damping em 15.
 
-    [HideInInspector] public float hitStunTimer;
+    [HideInInspector] public float hitStunTimer, dashDuration;
     [HideInInspector] public bool lockMovement = false;
     [HideInInspector] public int controllerID;
-    [HideInInspector] public bool blocking;
+    [HideInInspector] public bool blocking, dashing;
     public float defenseScale = 0.5f;
 
     Vector2 moveStick = new Vector2();
@@ -31,13 +31,6 @@ public class PlayerMovement : MonoBehaviour
     {
         //var gamepadLeftStick = Gamepad.all[controllerID].leftStick.ReadValue();
         InputKey = new Vector3(moveStick.x, 0, moveStick.y);
-
-        if (Input.GetKeyDown(KeyCode.LeftShift)) // Dash
-        {
-            rb.AddForce(transform.forward * 10, ForceMode.Impulse);
-        }
-
-        //blocking = Input.GetKey(KeyCode.Mouse1);
     }
 
     void FixedUpdate()
@@ -46,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (hitStunTimer > 0) hitStunTimer -= Time.fixedDeltaTime;
             else if (lockMovement) UnlockMovement();
-
+            
             if (!lockMovement)
             {
                 if (InputKey.magnitude > 0f && !blocking)
@@ -70,6 +63,12 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputValue value)
     {
         moveStick = value.Get<Vector2>();
+    }
+
+    public void OnDash(InputValue value)
+    {
+        dashing = true;
+        dashDuration = 0.2f;
     }
 
     public void OnBlock(InputValue button)

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class MainController : MonoBehaviour
 {
@@ -26,6 +27,21 @@ public class MainController : MonoBehaviour
         OrganizePlayerInfos();
         p.main = this;
         players.Add(p);
+        switch (players.Count)
+        {
+            case 1:
+                p.bodyMaterial.material.color = Color.red;
+                break;
+            case 2:
+                p.bodyMaterial.material.color = Color.blue;
+                break;
+            case 3:
+                p.bodyMaterial.material.color = Color.green;
+                break;
+            case 4:
+                p.bodyMaterial.material.color = Color.yellow;
+                break;
+        }
     }
 
     void OrganizePlayerInfos()
@@ -65,10 +81,18 @@ public class MainController : MonoBehaviour
     public void bt_BeginGame()
     {
         gameStart = true;
-        foreach (PlayerInfo p in GameObject.FindObjectsByType<PlayerInfo>(FindObjectsSortMode.None))
+        foreach (PlayerInfo p in players)
         {
             p.ChangeInputMap(0);
         }
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            float angle = i * Mathf.PI * 2 / players.Count;
+            Vector3 pos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * 4;
+            players[i].transform.position = pos;
+        }
+
     }
 
     public void WinGame(PlayerInfo player)
